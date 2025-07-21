@@ -1,0 +1,34 @@
+{
+  "info": {
+    "description": "data",
+    "version": "1.0",
+    "year": 2025,
+    "contributor": "search engine",
+    "source": "no_augmentation",
+    "license": {
+      "name": "Creative Commons Attribution 4.0 International",
+      "url": "https://creativecommons.org/licenses/by/4.0/"
+    }
+  },
+  "images": [
+    {
+      "id": 270604699,
+      "width": 3648,
+      "height": 2736,
+      "file_name": "P1130728.JPG",
+      "size": 4355749,
+      "format": "MPO",
+      "url": "",
+      "hash": "",
+      "status": "success"
+    }
+  ],
+  "annotations": [],
+  "categories": [
+    {
+      "id": 1000000001,
+      "name": "scab",
+      "supercategory": "applescabfds"
+    }
+  ]
+}

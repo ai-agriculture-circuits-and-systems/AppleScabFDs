@@ -21,6 +21,67 @@ The AppleScabFDs dataset is designed for apple scab detection tasks. It contains
 - **Composition**: Leaves were framed to occupy the image area as much as possible and centered in the image
 - **Multiple perspectives**: The same object was photographed from multiple viewpoints
 
+## Dataset Structure
+
+The dataset is organized as follows:
+
+```
+AppleScabFDs/
+├── Healthy/
+│   ├── IMG_0001.JPG
+│   ├── IMG_0001.json
+│   ├── IMG_0002.JPG
+│   ├── IMG_0002.json
+│   └── ...
+├── Scab/
+│   ├── IMG_1001.JPG
+│   ├── IMG_1001.json
+│   ├── IMG_1002.JPG
+│   ├── IMG_1002.json
+│   └── ...
+└── generate_annotations.py
+```
+
+- `Healthy/` and `Scab/` folders contain images of healthy apples and apples infected by scab, respectively.
+- Each image has a corresponding JSON annotation file with the same name (only the extension differs).
+- The annotation files are generated in COCO-style format.
+
+## Annotation File Explanation
+
+Each image has a corresponding annotation file (e.g., `IMG_0001.json`) with the following structure:
+
+```
+{
+  "info": { ... },
+  "images": [
+    {
+      "id": <10-digit unique id>,
+      "width": <image width>,
+      "height": <image height>,
+      "file_name": "IMG_0001.JPG",
+      "size": <file size in bytes>,
+      "format": "JPG",
+      "url": "",
+      "hash": "",
+      "status": "success"
+    }
+  ],
+  "annotations": [],
+  "categories": [
+    {
+      "id": 1000000000, // for healthy
+      "name": "healthy",
+      "supercategory": "applescabfds"
+    }
+  ]
+}
+```
+
+- **info**: Dataset meta information (description, version, license, etc.).
+- **images**: List containing metadata for the image (id, width, height, file name, size, format, etc.).
+- **annotations**: Annotation list (empty if no object-level annotation is provided).
+- **categories**: Only contains the category for the current image (either healthy or scab). The `id` is 1000000000 for healthy, 1000000001 for scab. The `supercategory` is always `applescabfds`.
+
 ## Applications
 
 This dataset can be used for:
@@ -50,7 +111,7 @@ Kodors, S., Lacis, G., Sokolova, O., Zhukovs, V., Apeinans, I., & Bartulsons, T.
 
 ## License
 
-This dataset is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (CC BY-NC-ND 4.0).
+This dataset is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
 
 ## Source
 

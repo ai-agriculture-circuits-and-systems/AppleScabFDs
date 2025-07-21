@@ -1,0 +1,34 @@
+{
+  "info": {
+    "description": "data",
+    "version": "1.0",
+    "year": 2025,
+    "contributor": "search engine",
+    "source": "no_augmentation",
+    "license": {
+      "name": "Creative Commons Attribution 4.0 International",
+      "url": "https://creativecommons.org/licenses/by/4.0/"
+    }
+  },
+  "images": [
+    {
+      "id": 9746468633,
+      "width": 4000,
+      "height": 3000,
+      "file_name": "20200714_162039.jpg",
+      "size": 3257785,
+      "format": "JPEG",
+      "url": "",
+      "hash": "",
+      "status": "success"
+    }
+  ],
+  "annotations": [],
+  "categories": [
+    {
+      "id": 1000000000,
+      "name": "healthy",
+      "supercategory": "applescabfds"
+    }
+  ]
+}
