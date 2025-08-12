@@ -1,0 +1,5 @@
+# Runtime deps for AppleScabFDs utilities
+
+pillow>=9.0.0
+
+
