@@ -1,236 +1,227 @@
-"""Convert AppleScabFDs to a COCO-style JSON.
-
-This converter creates COCO-formatted annotation files for splits defined in
-``sets/*.txt`` (``all``, ``train``, ``val``, or ``test``).
-
-Since AppleScabFDs is an image-level classification dataset, we represent the
-label using a single image-covering bounding box per image. This keeps the
-schema interoperable with COCO tooling and mirrors the structure used by
-``AppleBBCH81`` in this repository.
-
-Examples (CLI aligned with AppleBBCH81):
-  python scripts/convert_to_coco.py --out annotations
-  python scripts/convert_to_coco.py --out annotations --splits train val test --split-dir sets
-
-Backward-compatible usage:
-  python scripts/convert_to_coco.py --split all
+#!/usr/bin/env python3
+"""
+Convert AppleScabFDs dataset annotations to COCO JSON format.
+Supports multi-class classification (healthy=1, scab=2).
+New structure: apples/healthy/ and apples/scab/ subdirectories.
 """
 
-from __future__ import annotations
-
 import argparse
+import csv
 import json
-from dataclasses import dataclass
+import sys
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional, Sequence, Tuple
-
+from typing import Dict, List, Optional, Tuple
 from PIL import Image
 
+def read_split_list(split_file: Path) -> List[str]:
+    """Read image base names (without extension) from a split file."""
+    if not split_file.exists():
+        return []
+    lines = [line.strip() for line in split_file.read_text(encoding="utf-8").splitlines()]
+    return [line for line in lines if line]
 
-CLASS_TO_ID: Dict[str, int] = {"Healthy": 1, "Scab": 2}
+def image_size(image_path: Path) -> Tuple[int, int]:
+    """Return (width, height) for an image path using PIL."""
+    with Image.open(image_path) as img:
+        return img.width, img.height
 
+def parse_csv_boxes(csv_path: Path) -> List[Dict]:
+    """Parse a single CSV file and return bounding boxes with category IDs."""
+    if not csv_path.exists():
+        return []
+    
+    boxes = []
+    with csv_path.open(newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            try:
+                x = float(row.get('x', 0))
+                y = float(row.get('y', 0))
+                width = float(row.get('width', 0))
+                height = float(row.get('height', 0))
+                label = int(row.get('label', 1))
+                
+                if width > 0 and height > 0:
+                    boxes.append({
+                        'bbox': [x, y, width, height],
+                        'area': width * height,
+                        'category_id': label
+                    })
+            except (ValueError, KeyError):
+                continue
+    
+    return boxes
 
-@dataclass(frozen=True)
-class CocoCategory:
-    """COCO category representation."""
-
-    id: int
-    name: str
-    supercategory: str
-
-
-@dataclass(frozen=True)
-class CocoImage:
-    """COCO image representation."""
-
-    id: int
-    file_name: str
-    width: int
-    height: int
-
-
-@dataclass(frozen=True)
-class CocoAnnotation:
-    """COCO annotation representation."""
-
-    id: int
-    image_id: int
-    category_id: int
-    bbox: Tuple[float, float, float, float]
-    area: float
-    iscrowd: int
-
-
-def read_split_list(root: Path, split: str) -> List[Path]:
-    """Read a split list and return relative image paths.
-
-    Args:
-        root: Dataset root path.
-        split: One of ``all``, ``train``, ``val``, ``test``.
-
-    Returns:
-        List of relative paths to images.
+def collect_annotations_for_split(
+    category_root: Path,
+    split: str,
+) -> Tuple[List[Dict], List[Dict], List[Dict]]:
+    """Collect COCO dictionaries for images, annotations, and categories.
+    Supports new structure: apples/healthy/ and apples/scab/ subdirectories.
     """
-
-    list_path: Path = root / "sets" / f"{split}.txt"
-    if not list_path.exists():
-        raise FileNotFoundError(f"Split list not found: {list_path}")
-    lines: List[str] = [ln.strip() for ln in list_path.read_text(encoding="utf-8").splitlines() if ln.strip()]
-    return [Path(ln) for ln in lines]
-
-
-def build_coco(root: Path, rel_paths: Iterable[Path], year: int, version: str) -> Dict[str, object]:
-    """Construct a COCO dataset dictionary.
-
-    Args:
-        root: Dataset root path.
-        rel_paths: Iterable of relative image paths (e.g., ``Healthy/xxx.jpg``).
-        year: Year for the ``info`` block.
-        version: Version string for the ``info`` block.
-
-    Returns:
-        COCO dictionary ready to be serialized.
-    """
-
-    images: List[CocoImage] = []
-    annotations: List[CocoAnnotation] = []
-    categories: List[CocoCategory] = [
-        CocoCategory(id=CLASS_TO_ID["Healthy"], name="healthy", supercategory="applescabfds"),
-        CocoCategory(id=CLASS_TO_ID["Scab"], name="scab", supercategory="applescabfds"),
+    sets_dir = category_root / "sets"
+    split_file = sets_dir / f"{split}.txt"
+    image_stems = set(read_split_list(split_file))
+    
+    if not image_stems:
+        # Fall back to all images if no split file
+        healthy_dir = category_root / "healthy" / "images"
+        scab_dir = category_root / "scab" / "images"
+        image_stems = set()
+        if healthy_dir.exists():
+            image_stems.update({p.stem for p in healthy_dir.glob("*.png")})
+            image_stems.update({p.stem for p in healthy_dir.glob("*.jpg")})
+            image_stems.update({p.stem for p in healthy_dir.glob("*.JPG")})
+        if scab_dir.exists():
+            image_stems.update({p.stem for p in scab_dir.glob("*.png")})
+            image_stems.update({p.stem for p in scab_dir.glob("*.jpg")})
+            image_stems.update({p.stem for p in scab_dir.glob("*.JPG")})
+    
+    images: List[Dict] = []
+    anns: List[Dict] = []
+    categories: List[Dict] = [
+        {"id": 1, "name": "healthy", "supercategory": "apple_scab"},
+        {"id": 2, "name": "scab", "supercategory": "apple_scab"}
     ]
-
-    next_img_id: int = 1
-    next_ann_id: int = 1
-
-    for rel in rel_paths:
-        abs_path: Path = root / rel
-        if not abs_path.exists():
-            # Skip missing entries gracefully
+    
+    image_id_counter = 1
+    ann_id_counter = 1
+    
+    # Check both healthy and scab subdirectories
+    healthy_dir = category_root / "healthy"
+    scab_dir = category_root / "scab"
+    
+    for stem in sorted(image_stems):
+        # Try healthy directory first
+        img_path = None
+        subcategory = None
+        csv_path = None
+        
+        for ext in ['.png', '.jpg', '.JPG', '.PNG']:
+            test_path = healthy_dir / 'images' / f"{stem}{ext}"
+            if test_path.exists():
+                img_path = test_path
+                subcategory = 'healthy'
+                csv_path = healthy_dir / 'csv' / f"{stem}.csv"
+                break
+        
+        # If not found in healthy, try scab
+        if not img_path:
+            for ext in ['.png', '.jpg', '.JPG', '.PNG']:
+                test_path = scab_dir / 'images' / f"{stem}{ext}"
+                if test_path.exists():
+                    img_path = test_path
+                    subcategory = 'scab'
+                    csv_path = scab_dir / 'csv' / f"{stem}.csv"
+                    break
+        
+        if not img_path:
             continue
-        with Image.open(abs_path) as im:
-            width, height = im.size
+        
+        width, height = image_size(img_path)
+        images.append({
+            "id": image_id_counter,
+            "file_name": f"apples/{subcategory}/images/{img_path.name}",
+            "width": width,
+            "height": height,
+        })
+        
+        if csv_path and csv_path.exists():
+            for box in parse_csv_boxes(csv_path):
+                anns.append({
+                    "id": ann_id_counter,
+                    "image_id": image_id_counter,
+                    "category_id": box['category_id'],
+                    "bbox": box['bbox'],
+                    "area": box['area'],
+                    "iscrowd": 0,
+                })
+                ann_id_counter += 1
+        
+        image_id_counter += 1
+    
+    return images, anns, categories
 
-        # Determine class from top-level folder name
-        top_folder: str = rel.parts[0]
-        if top_folder not in CLASS_TO_ID:
-            # Ignore files not under Healthy/ or Scab/
-            continue
-        category_id: int = CLASS_TO_ID[top_folder]
-
-        images.append(
-            CocoImage(id=next_img_id, file_name=str(rel).replace("\\", "/"), width=width, height=height)
-        )
-
-        # Single full-image box to carry the class label
-        bbox = (0.0, 0.0, float(width), float(height))
-        area = float(width * height)
-        annotations.append(
-            CocoAnnotation(
-                id=next_ann_id,
-                image_id=next_img_id,
-                category_id=category_id,
-                bbox=bbox,
-                area=area,
-                iscrowd=0,
-            )
-        )
-
-        next_img_id += 1
-        next_ann_id += 1
-
-    coco_dict: Dict[str, object] = {
+def build_coco_dict(
+    images: List[Dict],
+    anns: List[Dict],
+    categories: List[Dict],
+    description: str,
+) -> Dict:
+    """Build a complete COCO dict from components."""
+    return {
         "info": {
-            "year": year,
-            "version": version,
-            "description": "AppleScabFDs (classification via full-image boxes)",
+            "year": 2021,
+            "version": "1.0.0",
+            "description": description,
             "url": "https://www.kaggle.com/datasets/projectlzp201910094/applescabfds",
         },
-        "images": [img.__dict__ for img in images],
-        "categories": [cat.__dict__ for cat in categories],
-        "annotations": [
-            {
-                "id": ann.id,
-                "image_id": ann.image_id,
-                "category_id": ann.category_id,
-                "bbox": list(ann.bbox),
-                "area": ann.area,
-                "iscrowd": ann.iscrowd,
-            }
-            for ann in annotations
-        ],
+        "images": images,
+        "annotations": anns,
+        "categories": categories,
+        "licenses": [],
     }
-    return coco_dict
 
+def convert(
+    root: Path,
+    out_dir: Path,
+    category: str,
+    splits: List[str],
+) -> None:
+    """Convert selected category and splits to COCO JSON files."""
+    out_dir.mkdir(parents=True, exist_ok=True)
+    
+    category_root = root / category
+    
+    for split in splits:
+        images, anns, categories = collect_annotations_for_split(
+            category_root, split
+        )
+        desc = f"AppleScabFDs {category} {split} split"
+        coco = build_coco_dict(images, anns, categories, desc)
+        out_path = out_dir / f"{category}_instances_{split}.json"
+        out_path.write_text(json.dumps(coco, indent=2), encoding="utf-8")
+        print(f"Generated: {out_path} ({len(images)} images, {len(anns)} annotations)")
 
-def save_coco(coco: Dict[str, object], out_path: Path) -> None:
-    """Serialize and save COCO JSON to a file.
-
-    Args:
-        coco: COCO dictionary.
-        out_path: Destination JSON path.
-    """
-
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    with out_path.open("w", encoding="utf-8") as f:
-        json.dump(coco, f, ensure_ascii=False)
-
-
-def parse_args() -> argparse.Namespace:
-    """Parse command-line arguments.
-
-    Supports both the AppleBBCH81-style CLI and legacy flags.
-    """
-
-    parser = argparse.ArgumentParser(description="Convert AppleScabFDs to COCO JSON")
-    # Common options
-    parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1], help="Dataset root folder")
-    parser.add_argument("--year", type=int, default=2024, help="Year in COCO info block")
-    parser.add_argument("--version", type=str, default="1.0.0", help="Version in COCO info block")
-
-    # AppleBBCH81-style options (accepted for parity; images/labels are unused here)
-    parser.add_argument("--images", type=Path, default=None, help="[Ignored] Images directory (not used for AppleScabFDs)")
-    parser.add_argument("--labels", type=Path, default=None, help="[Ignored] Labels directory (not used for AppleScabFDs)")
-    parser.add_argument("--out", type=Path, default=None, help="Output directory to save COCO JSON(s); defaults to <root>/annotations")
-    parser.add_argument("--splits", nargs="*", default=None, help="Optional list of splits to export (e.g., train val test). If omitted, exports a single 'all' JSON.")
-    parser.add_argument("--split-dir", type=Path, default=None, help="Directory containing split files like train.txt, val.txt, test.txt. Defaults to <root>/sets")
-
-    # Legacy option for single split
-    parser.add_argument("--split", type=str, default=None, choices=["all", "train", "val", "test"], help="Which single split to export (legacy; use --splits instead)")
-
-    return parser.parse_args()
-
-
-def main() -> None:
-    """Entry point for conversion to COCO JSON."""
-
-    args = parse_args()
-    root: Path = args.root
-    out_dir: Path = args.out if args.out is not None else (root / "annotations")
-    split_dir: Path = args.split_dir if args.split_dir is not None else (root / "sets")
-
-    # Determine requested splits
-    requested_splits: List[str]
-    if args.splits is not None and len(args.splits) > 0:
-        requested_splits = [str(s).strip() for s in args.splits]
-    else:
-        # Fall back to legacy --split or default to 'all'
-        single_split: str = args.split if args.split is not None else "all"
-        requested_splits = [single_split]
-
-    for split in requested_splits:
-        # Load paths from split list
-        list_path: Path = split_dir / f"{split}.txt"
-        if not list_path.exists():
-            raise FileNotFoundError(f"Split list not found: {list_path}")
-        rel_paths: List[Path] = [Path(ln.strip()) for ln in list_path.read_text(encoding="utf-8").splitlines() if ln.strip()]
-
-        coco = build_coco(root, rel_paths, year=args.year, version=args.version)
-        out_name: str = f"applescabfds_instances_{split}.json"
-        save_coco(coco, out_dir / out_name)
-        print(f"Wrote {out_dir.name}/{out_name} ({len(coco['images'])} images)")
-
+def main():
+    parser = argparse.ArgumentParser(description="Convert AppleScabFDs annotations to COCO JSON")
+    parser.add_argument(
+        "--root",
+        type=Path,
+        default=Path(__file__).resolve().parent.parent,
+        help="Dataset root directory",
+    )
+    parser.add_argument(
+        "--out",
+        type=Path,
+        default=None,
+        help="Output directory for COCO JSON files (default: <root>/annotations)",
+    )
+    parser.add_argument(
+        "--category",
+        type=str,
+        default="apples",
+        help="Category name (default: apples)",
+    )
+    parser.add_argument(
+        "--splits",
+        nargs="+",
+        default=["train", "val", "test"],
+        choices=["train", "val", "test"],
+        help="Dataset splits to generate (default: train val test)",
+    )
+    
+    args = parser.parse_args()
+    
+    if args.out is None:
+        args.out = args.root / "annotations"
+    
+    convert(
+        root=args.root,
+        out_dir=args.out,
+        category=args.category,
+        splits=args.splits,
+    )
 
 if __name__ == "__main__":
     main()
-
-

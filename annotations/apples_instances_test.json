@@ -1,0 +1,918 @@
+{
+  "info": {
+    "year": 2021,
+    "version": "1.0.0",
+    "description": "AppleScabFDs apples test split",
+    "url": "https://www.kaggle.com/datasets/projectlzp201910094/applescabfds"
+  },
+  "images": [
+    {
+      "id": 1,
+      "file_name": "apples/healthy/images/20200714_162002.jpg",
+      "width": 4000,
+      "height": 3000
+    },
+    {
+      "id": 2,
+      "file_name": "apples/healthy/images/20200714_162039.jpg",
+      "width": 4000,
+      "height": 3000
+    },
+    {
+      "id": 3,
+      "file_name": "apples/healthy/images/IMG_6743.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 4,
+      "file_name": "apples/healthy/images/IMG_6944.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 5,
+      "file_name": "apples/scab/images/IMG_7047.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 6,
+      "file_name": "apples/scab/images/IMG_7139.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 7,
+      "file_name": "apples/scab/images/IMG_7179.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 8,
+      "file_name": "apples/scab/images/IMG_7312.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 9,
+      "file_name": "apples/scab/images/IMG_7413.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 10,
+      "file_name": "apples/scab/images/IMG_7442.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 11,
+      "file_name": "apples/scab/images/IMG_7465.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 12,
+      "file_name": "apples/scab/images/IMG_7545.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 13,
+      "file_name": "apples/healthy/images/IMG_7556.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 14,
+      "file_name": "apples/scab/images/IMG_7626.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 15,
+      "file_name": "apples/scab/images/IMG_7632.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 16,
+      "file_name": "apples/scab/images/IMG_7635.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 17,
+      "file_name": "apples/healthy/images/IMG_7641.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 18,
+      "file_name": "apples/healthy/images/IMG_7643.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 19,
+      "file_name": "apples/scab/images/IMG_7648.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 20,
+      "file_name": "apples/scab/images/IMG_7671.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 21,
+      "file_name": "apples/scab/images/IMG_7672.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 22,
+      "file_name": "apples/healthy/images/IMG_7687.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 23,
+      "file_name": "apples/scab/images/IMG_7715.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 24,
+      "file_name": "apples/scab/images/IMG_7721.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 25,
+      "file_name": "apples/scab/images/IMG_7729.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 26,
+      "file_name": "apples/scab/images/IMG_7772.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 27,
+      "file_name": "apples/scab/images/IMG_7795.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 28,
+      "file_name": "apples/scab/images/IMG_7817.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 29,
+      "file_name": "apples/scab/images/IMG_8516.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 30,
+      "file_name": "apples/scab/images/IMG_8518.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 31,
+      "file_name": "apples/scab/images/IMG_8521.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 32,
+      "file_name": "apples/scab/images/IMG_8522.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 33,
+      "file_name": "apples/scab/images/IMG_8529.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 34,
+      "file_name": "apples/scab/images/IMG_8531.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 35,
+      "file_name": "apples/scab/images/IMG_8533.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 36,
+      "file_name": "apples/scab/images/IMG_8539.JPG",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": 37,
+      "file_name": "apples/healthy/images/P1130626.JPG",
+      "width": 3648,
+      "height": 2736
+    },
+    {
+      "id": 38,
+      "file_name": "apples/healthy/images/P1130656.JPG",
+      "width": 3648,
+      "height": 2736
+    },
+    {
+      "id": 39,
+      "file_name": "apples/healthy/images/P1130664.JPG",
+      "width": 3648,
+      "height": 2736
+    },
+    {
+      "id": 40,
+      "file_name": "apples/healthy/images/P1130687.JPG",
+      "width": 3648,
+      "height": 2736
+    },
+    {
+      "id": 41,
+      "file_name": "apples/healthy/images/P1130701.JPG",
+      "width": 3648,
+      "height": 2736
+    },
+    {
+      "id": 42,
+      "file_name": "apples/scab/images/P1130726.JPG",
+      "width": 3648,
+      "height": 2736
+    },
+    {
+      "id": 43,
+      "file_name": "apples/scab/images/P1130727.JPG",
+      "width": 3648,
+      "height": 2736
+    },
+    {
+      "id": 44,
+      "file_name": "apples/scab/images/P1130741.JPG",
+      "width": 3648,
+      "height": 2736
+    },
+    {
+      "id": 45,
+      "file_name": "apples/healthy/images/P1130746.JPG",
+      "width": 3648,
+      "height": 2736
+    },
+    {
+      "id": 46,
+      "file_name": "apples/healthy/images/P1130751.JPG",
+      "width": 3648,
+      "height": 2736
+    },
+    {
+      "id": 47,
+      "file_name": "apples/scab/images/P1130757.JPG",
+      "width": 3648,
+      "height": 2736
+    }
+  ],
+  "annotations": [
+    {
+      "id": 1,
+      "image_id": 1,
+      "category_id": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        4000.0,
+        3000.0
+      ],
+      "area": 12000000.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 2,
+      "image_id": 2,
+      "category_id": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        4000.0,
+        3000.0
+      ],
+      "area": 12000000.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 3,
+      "image_id": 3,
+      "category_id": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 4,
+      "image_id": 4,
+      "category_id": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 5,
+      "image_id": 5,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 6,
+      "image_id": 6,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 7,
+      "image_id": 7,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 8,
+      "image_id": 8,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 9,
+      "image_id": 9,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 10,
+      "image_id": 10,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 11,
+      "image_id": 11,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 12,
+      "image_id": 12,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 13,
+      "image_id": 13,
+      "category_id": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 14,
+      "image_id": 14,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 15,
+      "image_id": 15,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 16,
+      "image_id": 16,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 17,
+      "image_id": 17,
+      "category_id": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 18,
+      "image_id": 18,
+      "category_id": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 19,
+      "image_id": 19,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 20,
+      "image_id": 20,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 21,
+      "image_id": 21,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 22,
+      "image_id": 22,
+      "category_id": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 23,
+      "image_id": 23,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 24,
+      "image_id": 24,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 25,
+      "image_id": 25,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 26,
+      "image_id": 26,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 27,
+      "image_id": 27,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 28,
+      "image_id": 28,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 29,
+      "image_id": 29,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 30,
+      "image_id": 30,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 31,
+      "image_id": 31,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 32,
+      "image_id": 32,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 33,
+      "image_id": 33,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 34,
+      "image_id": 34,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 35,
+      "image_id": 35,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 36,
+      "image_id": 36,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        4032.0,
+        3024.0
+      ],
+      "area": 12192768.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 37,
+      "image_id": 37,
+      "category_id": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        3648.0,
+        2736.0
+      ],
+      "area": 9980928.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 38,
+      "image_id": 38,
+      "category_id": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        3648.0,
+        2736.0
+      ],
+      "area": 9980928.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 39,
+      "image_id": 39,
+      "category_id": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        3648.0,
+        2736.0
+      ],
+      "area": 9980928.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 40,
+      "image_id": 40,
+      "category_id": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        3648.0,
+        2736.0
+      ],
+      "area": 9980928.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 41,
+      "image_id": 41,
+      "category_id": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        3648.0,
+        2736.0
+      ],
+      "area": 9980928.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 42,
+      "image_id": 42,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        3648.0,
+        2736.0
+      ],
+      "area": 9980928.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 43,
+      "image_id": 43,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        3648.0,
+        2736.0
+      ],
+      "area": 9980928.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 44,
+      "image_id": 44,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        3648.0,
+        2736.0
+      ],
+      "area": 9980928.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 45,
+      "image_id": 45,
+      "category_id": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        3648.0,
+        2736.0
+      ],
+      "area": 9980928.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 46,
+      "image_id": 46,
+      "category_id": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        3648.0,
+        2736.0
+      ],
+      "area": 9980928.0,
+      "iscrowd": 0
+    },
+    {
+      "id": 47,
+      "image_id": 47,
+      "category_id": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        3648.0,
+        2736.0
+      ],
+      "area": 9980928.0,
+      "iscrowd": 0
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "healthy",
+      "supercategory": "apple_scab"
+    },
+    {
+      "id": 2,
+      "name": "scab",
+      "supercategory": "apple_scab"
+    }
+  ],
+  "licenses": []
+}
