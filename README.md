@@ -1,47 +1,62 @@
 # AppleScabFDs
 
-[![DOI](https://img.shields.io/badge/DOI-pending-lightgrey)](#citation)
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-blue.svg)](https://creativecommons.org/licenses/by/4.0/)
-[![Version](https://img.shields.io/badge/version-1.0.0-blue)](#changelog)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-green?logo=creativecommons&logoColor=white)](https://creativecommons.org/licenses/by/4.0/)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue?logo=semver&logoColor=white)](https://github.com/ai-agriculture-circuits-and-systems/AppleScabFDs)
+[![GitHub stars](https://img.shields.io/github/stars/ai-agriculture-circuits-and-systems/AppleScabFDs?style=flat&logo=github&label=Stars&color=orange&labelColor=orange&logoColor=white)](https://github.com/ai-agriculture-circuits-and-systems/AppleScabFDs)
+[![GitHub forks](https://img.shields.io/github/forks/ai-agriculture-circuits-and-systems/AppleScabFDs?style=flat&logo=github&label=Forks&color=yellow&labelColor=yellow&logoColor=white)](https://github.com/ai-agriculture-circuits-and-systems/AppleScabFDs)
+[![GitHub watchers](https://img.shields.io/github/watchers/ai-agriculture-circuits-and-systems/AppleScabFDs?style=flat&logo=github&label=Watchers&color=cyan&labelColor=cyan&logoColor=white)](https://github.com/ai-agriculture-circuits-and-systems/AppleScabFDs)
+[![GitHub issues](https://img.shields.io/github/issues/ai-agriculture-circuits-and-systems/AppleScabFDs?style=flat&logo=github&label=Issues&color=red&labelColor=red&logoColor=white)](https://github.com/ai-agriculture-circuits-and-systems/AppleScabFDs/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/ai-agriculture-circuits-and-systems/AppleScabFDs?style=flat&logo=github&label=PRs&color=lime&labelColor=lime&logoColor=white)](https://github.com/ai-agriculture-circuits-and-systems/AppleScabFDs/pulls)
+[![GitHub contributors](https://img.shields.io/github/contributors/ai-agriculture-circuits-and-systems/AppleScabFDs?style=flat&logo=github&label=Contributors&color=purple&labelColor=purple&logoColor=white)](https://github.com/ai-agriculture-circuits-and-systems/AppleScabFDs/graphs/contributors)
+[![GitHub last commit](https://img.shields.io/github/last-commit/ai-agriculture-circuits-and-systems/AppleScabFDs?style=flat&logo=github&label=Last%20Commit&color=gray&labelColor=gray&logoColor=white)](https://github.com/ai-agriculture-circuits-and-systems/AppleScabFDs/commits)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.xxxxx-indigo?logo=doi&logoColor=white)](https://doi.org/10.5281/zenodo.xxxxx)
 
 Images of apple leaves/fruits labeled for scab presence. Photos were collected in orchards across Latvia under varied lighting conditions. This folder now follows the standardized layout used by `AppleBBCH81`.
 
-- Project page: `https://www.kaggle.com/datasets/projectlzp201910094/applescabfds`
-- Issue tracker: use this repo
+- **Project page**: `https://www.kaggle.com/datasets/projectlzp201910094/applescabfds`
+- **Original paper**: `https://doi.org/10.15159/AR.21.045`
+- **Dataset repository**: `https://github.com/ai-agriculture-circuits-and-systems/AppleScabFDs`
 
 ## TL;DR
-- Task: classification (two classes: `healthy`, `scab`)
-- Modality: RGB
-- Platform: handheld/field
-- Real/Synthetic: real
-- Images: ~hundreds (see counts)
-- Classes: 2
-- Resolution: various
-- Annotations: COCO JSON (image-level via full-image boxes)
-- License: CC BY 4.0 (see License)
-- Citation: see below
 
-## Table of contents
+- **Task**: Classification (two classes: healthy, scab)
+- **Modality**: RGB
+- **Platform**: Ground (handheld/field)
+- **Real/Synthetic**: Real
+- **Images**: 297 images (Healthy: 90; Scab: 207)
+- **Classes**: 2 classes (healthy, scab)
+- **Resolution**: Various (typically 3648×2736 pixels)
+- **Annotations**: COCO JSON (image-level via full-image boxes)
+- **License**: CC BY 4.0 (see License)
+- **Citation**: see below
+
+## Table of Contents
+
 - [Download](#download)
-- [Dataset structure](#dataset-structure)
-- [Sample images](#sample-images)
-- [Annotation schema](#annotation-schema)
-- [Stats and splits](#stats-and-splits)
-- [Quick start](#quick-start)
-- [Evaluation and baselines](#evaluation-and-baselines)
-- [Datasheet (data card)](#datasheet-data-card)
-- [Known issues and caveats](#known-issues-and-caveats)
+- [Dataset Structure](#dataset-structure)
+- [Sample Images](#sample-images)
+- [Annotation Schema](#annotation-schema)
+- [Stats and Splits](#stats-and-splits)
+- [Quick Start](#quick-start)
+- [Evaluation and Baselines](#evaluation-and-baselines)
+- [Datasheet (Data Card)](#datasheet-data-card)
+- [Known Issues and Caveats](#known-issues-and-caveats)
 - [License](#license)
 - [Citation](#citation)
 - [Changelog](#changelog)
 - [Contact](#contact)
 
 ## Download
-- Original dataset: `https://www.kaggle.com/datasets/projectlzp201910094/applescabfds`
-- This repo hosts structure and conversion scripts only; place the downloaded folders under this directory.
-- Local license file: see `LICENSE` (Creative Commons Attribution 4.0).
 
-## Dataset structure
+**Original dataset**: `https://www.kaggle.com/datasets/projectlzp201910094/applescabfds`
+
+This repo hosts structure and conversion scripts only; place the downloaded folders under this directory.
+
+**Local license file**: See `LICENSE` in the root directory (Creative Commons Attribution 4.0 International).
+
+**Alternative sources**: Data hosted on Kaggle.
+
+## Dataset Structure
 
 This dataset follows the standardized dataset structure specification with subcategory organization:
 
@@ -79,7 +94,7 @@ AppleScabFDs/
 
 - Splits: `apples/sets/train.txt`, `apples/sets/val.txt`, `apples/sets/test.txt` (and also `all.txt`, `train_val.txt`) list image paths (format: `{subcategory}/{image_name}`). If missing, all images are used.
 
-## Sample images
+## Sample Images
 
 Below are example images for each category in this dataset. Paths are relative to this README location.
 
@@ -104,7 +119,7 @@ Below are example images for each category in this dataset. Paths are relative t
   </tr>
 </table>
 
-## Annotation schema
+## Annotation Schema
 - CSV per-image schemas (stored under each subcategory's `csv/` folder):
   - Classification task: columns include `item, x, y, width, height, label` (full-image bounding box: `[0, 0, image_width, image_height]`).
 - COCO-style (generated):
@@ -119,7 +134,7 @@ Below are example images for each category in this dataset. Paths are relative t
 
 - Label maps: `apples/labelmap.json` defines the category mapping; the provided converter normalizes to 2 categories (healthy=1, scab=2).
 
-## Stats and splits
+## Stats and Splits
 - Total images: 297
   - Healthy: 90 images
   - Scab: 207 images
@@ -129,7 +144,7 @@ Below are example images for each category in this dataset. Paths are relative t
 - Classes: 2 (healthy=1, scab=2)
 - Splits provided via `apples/sets/*.txt`. You may define your own splits by editing those files.
 
-## Quick start
+## Quick Start
 Python (COCO):
 ```python
 from pycocotools.coco import COCO
@@ -153,11 +168,11 @@ Optional for the COCO API example:
 python -m pip install pycocotools
 ```
 
-## Evaluation and baselines
+## Evaluation and Baselines
 - Metric: Accuracy for classification; report F1 for historical comparison if desired.
 - Reference results: See citation paper for baseline results using CNN and transfer learning.
 
-## Datasheet (data card)
+## Datasheet (Data Card)
 - Motivation: apple scab presence classification to help identify diseased apple leaves/fruits.
 - Composition: RGB images of apple leaves/fruits; 2 classes (healthy, scab).
 - Collection process: Photos collected in orchards across Latvia under varied lighting conditions; field images at various times of day and lighting.
@@ -165,7 +180,7 @@ python -m pip install pycocotools
 - Distribution: data hosted on Kaggle; this repo provides ancillary scripts and standardized structure.
 - Maintenance: community contributions via issue tracker.
 
-## Known issues and caveats
+## Known Issues and Caveats
 - Classification task: This is a classification dataset. Each image has a full-image bounding box annotation indicating its class (healthy or scab).
 - Data quality note: Some images in the dataset may not match the expected content (e.g., may contain images of other fruits). Please verify image content before use. The dataset structure has been standardized, but the original image content is preserved as-is from the source dataset.
 - Coordinates are in pixel units with origin at the image top-left. Ensure downstream tooling expects absolute COCO boxes.
